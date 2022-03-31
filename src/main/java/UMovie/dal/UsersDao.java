@@ -1,6 +1,5 @@
 package UMovie.dal;
 
-import UMovie.dal.ConnectionManager;
 import UMovie.model.Users;
 
 import java.sql.Connection;
@@ -61,7 +60,7 @@ public class UsersDao {
      */
     public Users getUserByUserName(String userName) throws SQLException {
         String selectUser =
-                "SELECT UserName,Password,FirstName,LastName,Email,Phone " +
+                "SELECT UserName,FirstName,LastName,Email,Phone " +
                         "FROM Users " +
                         "WHERE UserName=?;";
         Connection connection = null;
@@ -121,7 +120,7 @@ public class UsersDao {
             updateStmt.setString(4, user.getPhone());
             updateStmt.setString(5, user.getUserName());
             updateStmt.executeUpdate();
-            return null;
+            return this.getUserByUserName(user.getUserName());
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;

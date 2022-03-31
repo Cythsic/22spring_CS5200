@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/usercreate")
+@WebServlet("/Users/usercreate")
 public class UserCreate extends HttpServlet {
 
     protected UsersDao usersDao;
@@ -31,7 +31,7 @@ public class UserCreate extends HttpServlet {
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
         //Just render the JSP.
-        req.getRequestDispatcher("/UserCreate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Users/UserCreate.jsp").forward(req, resp);
     }
 
     @Override
@@ -55,6 +55,7 @@ public class UserCreate extends HttpServlet {
             try {
                 Users user = new Users(userName, firstName, lastName, email, phone);
                 user = usersDao.create(user);
+                req.setAttribute("user", user);
                 messages.put("success", "Successfully created " + userName);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -62,7 +63,7 @@ public class UserCreate extends HttpServlet {
             }
         }
 
-        req.getRequestDispatcher("/UserCreate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Users/UserCreate.jsp").forward(req, resp);
     }
 }
 

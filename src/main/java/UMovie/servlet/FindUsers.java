@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
  * 3. Run the Tomcat server at localhost.
  * 4. Point your browser to http://localhost:8080/BlogApplication/findusers.
  */
-@WebServlet("/findusers")
+@WebServlet("/Users/findusers")
 public class FindUsers extends HttpServlet {
 
     protected UsersDao usersDao;
@@ -68,9 +68,9 @@ public class FindUsers extends HttpServlet {
             // in the input box when rendering FindUsers.jsp.
             messages.put("previousUserName", userName);
         }
-        req.setAttribute("User", user);
+        req.setAttribute("user", user);
 
-        req.getRequestDispatcher("/FindUsers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Users/FindUsers.jsp").forward(req, resp);
     }
 
     @Override
@@ -97,9 +97,9 @@ public class FindUsers extends HttpServlet {
             }
             messages.put("success", "Displaying results for " + userName);
         }
-        req.setAttribute("User", user);
+        req.setAttribute("user", user);
 
-        req.getRequestDispatcher("/FindUsers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Users/FindUsers.jsp").forward(req, resp);
     }
 }
 

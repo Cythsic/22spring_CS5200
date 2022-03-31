@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/userupdate")
+@WebServlet("/Users/userupdate")
 public class UserUpdate extends HttpServlet {
 
     protected UsersDao userDao;
@@ -42,14 +42,17 @@ public class UserUpdate extends HttpServlet {
                 if(user == null) {
                     messages.put("success", "UserName does not exist.");
                 }
-                req.setAttribute("User", user);
+                else {
+                	messages.put("success", "Updating information for user: " + userName);
+                }
+                req.setAttribute("user", user);
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new IOException(e);
             }
         }
 
-        req.getRequestDispatcher("/UserUpdate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Users/UserUpdate.jsp").forward(req, resp);
     }
 
     @Override
@@ -98,14 +101,14 @@ public class UserUpdate extends HttpServlet {
                     user = userDao.update(user);
                     messages.put("success", "Successfully updated " + userName);
                 }
-                req.setAttribute("User", user);
+                req.setAttribute("user", user);
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new IOException(e);
             }
         }
 
-        req.getRequestDispatcher("/UserUpdate.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Users/UserUpdate.jsp").forward(req, resp);
     }
 }
 

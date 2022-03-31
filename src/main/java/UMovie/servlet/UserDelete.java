@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/userdelete")
+@WebServlet("/Users/userdelete")
 public class UserDelete extends HttpServlet {
 
     protected UsersDao usersDao;
@@ -33,7 +33,7 @@ public class UserDelete extends HttpServlet {
         req.setAttribute("messages", messages);
         // Provide a title and render the JSP.
         messages.put("title", "Delete User");
-        req.getRequestDispatcher("/UserDelete.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Users/UserDelete.jsp").forward(req, resp);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UserDelete extends HttpServlet {
         // Map for storing messages.
         Map<String, String> messages = new HashMap<String, String>();
         req.setAttribute("messages", messages);
-
+        messages.put("disableSubmit", "false");
         // Retrieve and validate name.
         String userName = req.getParameter("username");
         if (userName == null || userName.trim().isEmpty()) {
@@ -55,10 +55,10 @@ public class UserDelete extends HttpServlet {
                 user = usersDao.delete(user);
                 // Update the message.
                 if (user == null) {
-                    messages.put("title", "Successfully deleted " + userName);
+                    messages.put("success", "Successfully deleted " + userName);
                     messages.put("disableSubmit", "true");
                 } else {
-                    messages.put("title", "Failed to delete " + userName);
+                    messages.put("success", "Failed to delete " + userName);
                     messages.put("disableSubmit", "false");
                 }
             } catch (SQLException e) {
@@ -67,6 +67,6 @@ public class UserDelete extends HttpServlet {
             }
         }
 
-        req.getRequestDispatcher("/UserDelete.jsp").forward(req, resp);
+        req.getRequestDispatcher("/Users/UserDelete.jsp").forward(req, resp);
     }
 }
